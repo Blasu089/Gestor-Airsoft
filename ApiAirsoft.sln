@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33110.190
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiAirsoft", "ApiAirsoft.csproj", "{9346963A-398D-42C9-8D1B-7A8A3746CA21}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9346963A-398D-42C9-8D1B-7A8A3746CA21}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9346963A-398D-42C9-8D1B-7A8A3746CA21}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9346963A-398D-42C9-8D1B-7A8A3746CA21}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9346963A-398D-42C9-8D1B-7A8A3746CA21}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BEE057F6-ACC9-4780-B124-388C39E8D510}
+	EndGlobalSection
+EndGlobal
