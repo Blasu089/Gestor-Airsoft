@@ -30,8 +30,7 @@ namespace Api.Modelos.EntityType
                    .HasValue<Escopeta>("Escopeta")
                    .HasValue<Fusil>("Fusil")
                    .HasValue<Francotirador>("Francotirador")
-                   .HasValue<Pistola>("Pistola")
-                   .HasValue<Subfusil>("Subfusil");
+                   .HasValue<Pistola>("Pistola");
 
         }
     }
