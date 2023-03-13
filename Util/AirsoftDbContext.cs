@@ -1,15 +1,15 @@
-﻿using Api.Modelos;
-using Api.Modelos.Armas;
-using Api.Modelos.EntityType;
+﻿using ApiAirsoft.Modelos;
+using ApiAirsoft.Modelos.Armas;
+using ApiAirsoft.Modelos.EntityType;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics.Contracts;
 
-namespace Api.Util
+namespace ApiAirsoft.Util
 {
     public class AirsoftDbContext : DbContext
     {
         public DbSet<Arma> Armas { get; set; }
-        public DbSet<Color> Colores{ get; set; }
+        public DbSet<Color> Colores { get; set; }
 
         public AirsoftDbContext(DbContextOptions<AirsoftDbContext> options) : base(options)
         {

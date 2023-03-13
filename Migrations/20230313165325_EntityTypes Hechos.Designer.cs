@@ -3,6 +3,7 @@ using ApiAirsoft.Util;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ApiAirsoft.Migrations
 {
     [DbContext(typeof(AirsoftDbContext))]
-    partial class AirsoftDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230313165325_EntityTypes Hechos")]
+    partial class EntityTypesHechos
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

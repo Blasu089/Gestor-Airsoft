@@ -1,6 +1,7 @@
-﻿using Microsoft.Extensions.Diagnostics.HealthChecks;
+﻿using ApiAirsoft.Modelos;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
 
-namespace Api.Modelos.Ropa
+namespace ApiAirsoft.Modelos.Ropas
 {
     public class Ropa
     {
@@ -10,6 +11,7 @@ namespace Api.Modelos.Ropa
         public string Material { get; set; }
         public decimal Precio { get; set; }
         public string Foto { get; set; }
-
+        public virtual ICollection<Color> Colores { get; set; }
+        public virtual ICollection<Talla> Tallas { get; set; }
     }
 }

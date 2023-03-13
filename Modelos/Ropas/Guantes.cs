@@ -1,4 +1,4 @@
-﻿namespace Api.Modelos.Ropa
+﻿namespace ApiAirsoft.Modelos.Ropas
 {
     public class Guantes : Ropa
     {

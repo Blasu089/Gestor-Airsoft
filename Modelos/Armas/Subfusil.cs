@@ -1,4 +1,4 @@
-﻿namespace Api.Modelos.Armas
+﻿namespace ApiAirsoft.Modelos.Armas
 {
     public class Subfusil : Arma
     {

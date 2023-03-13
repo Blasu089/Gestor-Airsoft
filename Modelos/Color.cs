@@ -1,6 +1,7 @@
-﻿using Api.Modelos.Armas;
+﻿using ApiAirsoft.Modelos.Armas;
+using ApiAirsoft.Modelos.Ropas;
 
-namespace Api.Modelos
+namespace ApiAirsoft.Modelos
 {
     public class Color
     {
@@ -9,5 +10,8 @@ namespace Api.Modelos
         public string Hexadecimal { get; set; }
 
         public virtual ICollection<Arma> Armas { get; set; }
+        public virtual ICollection<Accesorio> Accesorios { get; set; }
+        public virtual ICollection<Ropa> Ropas { get; set; }
+
     }
 }

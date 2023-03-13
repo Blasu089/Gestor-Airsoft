@@ -1,4 +1,6 @@
-﻿namespace Api.Modelos.Armas
+﻿using ApiAirsoft.Modelos;
+
+namespace ApiAirsoft.Modelos.Armas
 {
     public class Accesorio
     {
@@ -10,5 +12,7 @@
         public string Tipo { get; set; }
         public decimal Precio { get; set; }
         public string Foto { get; set; }
+        public virtual ICollection<Color> Colores { get; set; }
+        public virtual ICollection<Arma> Armas { get; set; }
     }
 }

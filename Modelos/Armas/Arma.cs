@@ -1,7 +1,8 @@
-﻿using System.Data.SqlTypes;
+﻿using ApiAirsoft.Modelos;
+using System.Data.SqlTypes;
 using System.Numerics;
 
-namespace Api.Modelos.Armas
+namespace ApiAirsoft.Modelos.Armas
 {
     public class Arma
     {
@@ -18,8 +19,10 @@ namespace Api.Modelos.Armas
         public int Capacidad_Cargador { get; set; }
         public decimal Precio { get; set; }
         public string Foto { get; set; }
-
         public virtual ICollection<Color> Colores { get; set; }
+        public virtual ICollection<Accesorio> Accesorios { get; set; }
+        public virtual ICollection<Disparo> Disparos { get; set; }
+        public virtual ICollection<Accion> Acciones { get; set; }
 
     }
 }

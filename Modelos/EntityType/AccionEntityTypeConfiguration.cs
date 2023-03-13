@@ -1,8 +1,8 @@
-﻿using Api.Modelos.Armas;
+﻿using ApiAirsoft.Modelos.Armas;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Api.Modelos.EntityType
+namespace ApiAirsoft.Modelos.EntityType
 {
     public class AccionEntityTypeConfiguration : IEntityTypeConfiguration<Accion>
     {

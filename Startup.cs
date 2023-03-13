@@ -1,20 +1,25 @@
-﻿using Api.Util;
+﻿using ApiAirsoft.Servicios.IServices;
+using ApiAirsoft.Util;
+using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 
-namespace Api
+namespace ApiAirsoft
 {
     public class Startup
     {
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<AirsoftDbContext>();
+            services.AddDbContext<AirsoftDbContext>(opt => {
+                opt.UseSqlServer("name=ConnectionStrings:DB1");
+                opt.UseLazyLoadingProxies();
+            });
 
             //services.AddScoped<IMapper, Mapper>();
 
             /*Repositories*/
             //services.AddScoped(typeof(IRepository<,>), typeof(Repository<,>));
 
-            //services.AddScoped<IVehiculeService, VehiculeService>();
+            //services.AddScoped<IArmaService, ArmaService>();
 
             services.AddMvc();
 
@@ -25,9 +30,6 @@ namespace Api
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            app.UseSwagger();
-            app.UseSwagger();
-
             app.UseHttpsRedirection();
             app.UseRouting();
 
