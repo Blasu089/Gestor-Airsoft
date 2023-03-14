@@ -1,13 +1,11 @@
 ﻿
 
+using ApiAirsoft.Modelos.Armas;
+
 namespace ApiAirsoft.Servicios.IServices
 {
-    public interface IArmaService<T>
+    public interface IArmaService<T>:ICrudService<T> where T : Arma
     {
-        ICollection<T> GetAll();
-
-        T GetById(int id);
-
-        void Delete(int id);
+        
     }
 }

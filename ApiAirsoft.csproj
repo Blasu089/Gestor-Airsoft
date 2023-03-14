@@ -29,8 +29,6 @@
   <ItemGroup>
     <Folder Include="Controladores\" />
     <Folder Include="Modelos\DTOs\" />
-    <Folder Include="Repositorios\" />
-    <Folder Include="Servicios\Services\" />
   </ItemGroup>
 
 </Project>

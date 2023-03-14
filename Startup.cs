@@ -1,4 +1,7 @@
-﻿using ApiAirsoft.Servicios.IServices;
+﻿using ApiAirsoft.Modelos.Armas;
+using ApiAirsoft.Repositorios;
+using ApiAirsoft.Servicios.IServices;
+using ApiAirsoft.Servicios.Services;
 using ApiAirsoft.Util;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
@@ -14,12 +17,9 @@ namespace ApiAirsoft
                 opt.UseLazyLoadingProxies();
             });
 
-            //services.AddScoped<IMapper, Mapper>();
-
-            /*Repositories*/
-            //services.AddScoped(typeof(IRepository<,>), typeof(Repository<,>));
-
-            //services.AddScoped<IArmaService, ArmaService>();
+            /*BussinessLogical*/
+            services.AddScoped<IRepositorio<object>, Repositorio<object>>();
+            services.AddScoped<IArmaService<Arma>, ArmaService>();
 
             services.AddMvc();
 

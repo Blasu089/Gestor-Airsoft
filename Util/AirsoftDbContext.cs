@@ -1,8 +1,8 @@
 ﻿using ApiAirsoft.Modelos;
 using ApiAirsoft.Modelos.Armas;
 using ApiAirsoft.Modelos.EntityType;
+using ApiAirsoft.Modelos.Ropas;
 using Microsoft.EntityFrameworkCore;
-using System.Diagnostics.Contracts;
 
 namespace ApiAirsoft.Util
 {
@@ -10,10 +10,13 @@ namespace ApiAirsoft.Util
     {
         public DbSet<Arma> Armas { get; set; }
         public DbSet<Color> Colores { get; set; }
+        public DbSet<Ropa> Ropas { get; set; }
+        public DbSet<Talla> Tallas { get; set; }
+        public DbSet<Disparo> Disparos { get; set; }
+        public DbSet<Accion> Acciones { get; set; }
+        public DbSet<Lentes> Lentes { get; set; }
 
-        public AirsoftDbContext(DbContextOptions<AirsoftDbContext> options) : base(options)
-        {
-        }
+        public AirsoftDbContext(DbContextOptions<AirsoftDbContext> options) : base(options) { }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -21,9 +24,7 @@ namespace ApiAirsoft.Util
             callCreating(modelBuilder);
         }
 
-        private void callCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.ApplyConfigurationsFromAssembly(typeof(ArmaEntityTypeConfiguration).Assembly);
-        }
+        private void callCreating(ModelBuilder modelBuilder) => modelBuilder
+            .ApplyConfigurationsFromAssembly(typeof(ArmaEntityTypeConfiguration).Assembly);
     }
 }
