@@ -12,7 +12,7 @@ namespace ApiAirsoft.Modelos.Armas
         public string Tipo { get; set; }
         public decimal Precio { get; set; }
         public string Foto { get; set; }
-        public virtual ICollection<Color> Colores { get; set; }
-        public virtual ICollection<Arma> Armas { get; set; }
+        public int? Color_Id { get; set; }
+        public int? Cod_Pedido { get; set; }
     }
 }

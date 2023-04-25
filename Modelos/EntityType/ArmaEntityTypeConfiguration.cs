@@ -21,27 +21,9 @@ namespace ApiAirsoft.Modelos.EntityType
             builder.Property(a => a.Capacidad_Cargador);
             builder.Property(a => a.Precio).IsRequired();
             builder.Property(a => a.Foto);
-
-            builder.HasMany(a => a.Colores)
-                   .WithMany(c => c.Armas);
-
-            builder.HasDiscriminator<string>("Tipo Arma")
-                   .HasValue<Arma>("Arma")
-                   .HasValue<Escopeta>("Escopeta")
-                   .HasValue<Fusil>("Fusil")
-                   .HasValue<Francotirador>("Francotirador")
-                   .HasValue<Pistola>("Pistola")
-                   .HasValue<Subfusil>("Subfusil");
-
-            builder.HasMany(a => a.Accesorios)
-                   .WithMany(ac => ac.Armas);
-
-            builder.HasMany(a => a.Disparos)
-                   .WithMany(d => d.Armas);
-
-            builder.HasMany(a => a.Acciones)
-                   .WithMany(acci => acci.Armas);
-
+            builder.Property(a => a.TipoArma).IsRequired();
+            builder.Property(a => a.Capacidad_Cartucho);
+            builder.Property(a => a.Cartuchos_Incluidos).HasDefaultValue(false);
         }
     }
 }

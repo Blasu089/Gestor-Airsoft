@@ -1,6 +1,4 @@
-﻿using ApiAirsoft.Modelos;
-using System.Data.SqlTypes;
-using System.Numerics;
+﻿using ApiAirsoft.Util.Enumerados;
 
 namespace ApiAirsoft.Modelos.Armas
 {
@@ -19,10 +17,14 @@ namespace ApiAirsoft.Modelos.Armas
         public int Capacidad_Cargador { get; set; }
         public decimal Precio { get; set; }
         public string Foto { get; set; }
-        public virtual ICollection<Color> Colores { get; set; }
-        public virtual ICollection<Accesorio> Accesorios { get; set; }
-        public virtual ICollection<Disparo> Disparos { get; set; }
-        public virtual ICollection<Accion> Acciones { get; set; }
-
+        public TipoArma TipoArma { get; set; }
+        public int? Color_Id { get; set; }
+        public int? Accion_Id { get; set; }
+        public int? Disparo_Id { get; set; }
+        public int? Capacidad_Cartucho { get; set; }
+        public bool? Cartuchos_Incluidos { get; set; }
+        public bool? Bipode_Incluido { get; set; }
+        public bool? Mira_Incluida { get; set; }
+        public int? Cod_Pedido { get; set; }
     }
 }

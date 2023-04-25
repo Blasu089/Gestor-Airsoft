@@ -10,6 +10,11 @@ namespace ApiAirsoft.Modelos.EntityType
         {
             builder.HasKey(d => d.Cod_Disparo);
             builder.Property(d => d.Tipo).IsRequired().HasMaxLength(50);
+
+            builder.HasMany(d => d.Armas)
+                   .WithOne()
+                   .HasForeignKey(ac => ac.Disparo_Id)
+                   .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

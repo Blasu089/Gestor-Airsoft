@@ -1,20 +1,18 @@
-﻿using ApiAirsoft.Excepciones;
-using ApiAirsoft.Util;
+﻿using ApiAirsoft.Util;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
-using System.Runtime.InteropServices.ObjectiveC;
 
 namespace ApiAirsoft.Repositorios
 {
-    public class Repositorio<TEntity> : IRepositorio<TEntity> where TEntity : class
+    public class Repositorio<TKey, TEntity> : IRepositorio<TKey, TEntity> where TEntity : class
     {
-        private readonly AirsoftDbContext airsoftDbContext;
+        private readonly DbContext DbContext;
         private readonly DbSet<TEntity> entity;
 
-        public Repositorio(AirsoftDbContext airsoftDbContext, DbSet<TEntity> entity)
+        public Repositorio(AirsoftDbContext airsoftDbContext)
         {
-            this.airsoftDbContext = airsoftDbContext;
-            this.entity = entity;
+            this.DbContext = airsoftDbContext;
+            entity = airsoftDbContext.Set<TEntity>();
         }
         public IQueryable<TEntity> Get()
         {
@@ -22,20 +20,20 @@ namespace ApiAirsoft.Repositorios
             return entities;
         }
 
-        public IQueryable<TEntity> Get(int id)
+        public IQueryable<TEntity> Get(int? id)
         {
             var entities = entity.AsNoTracking();
             return entities;
         }
 
-        public TEntity Get(TEntity item, params Expression<Func<TEntity, IEnumerable<object>>>[] includes)
+        public TEntity? Get(TKey? item, params Expression<Func<TEntity, IEnumerable<object>>>[] includes)
         {
             var entities = entity.Find(item);
 
             if (entities != default)
             {
                 foreach (var include in includes)
-                    airsoftDbContext.Entry(entities).Collection(include).Load();
+                    DbContext.Entry(entities).Collection(include).Load();
             }
 
             return entities;
@@ -43,20 +41,23 @@ namespace ApiAirsoft.Repositorios
 
         public IQueryable<TEntity> Where()
         {
-            var query = airsoftDbContext.Set<TEntity>().AsQueryable();
+            var query = DbContext.Set<TEntity>().AsQueryable();
             return query;
         }
 
+        /**
+         * Metodo para poner condiciones en la busqueda de datos
+         */
         public IQueryable<TEntity> Where(Expression<Func<TEntity, bool>> predicate)
         {
-            var query = airsoftDbContext.Set<TEntity>().Where(predicate);
+            var query = DbContext.Set<TEntity>().Where(predicate);
             return query;
         }
 
         public bool Add(TEntity item)
         {
-            airsoftDbContext.Set<TEntity>().Add(item);
-           var cont = airsoftDbContext.SaveChanges();
+            DbContext.Set<TEntity>().Add(item);
+            var cont = DbContext.SaveChanges();
             return cont > 0;
         }
 
@@ -65,21 +66,21 @@ namespace ApiAirsoft.Repositorios
             var cont = 0;
             if (item != default)
             {
-                airsoftDbContext.Entry(item).State = EntityState.Modified;
-                airsoftDbContext.Set<TEntity>().Update(item); 
-                cont = airsoftDbContext.SaveChanges();
+                DbContext.Entry(item).State = EntityState.Modified;
+                DbContext.Set<TEntity>().Update(item); 
+                cont = DbContext.SaveChanges();
             }
             return cont > 0;
             
         }
 
-        public bool Delete(TEntity item)
+        public bool Delete(TKey item)
         {
             var model = Get(item);
             if (model == null)
-                throw new EntityNotFoundException(item,typeof(TEntity));
+                throw new NullReferenceException();
             entity.Remove(model);
-            var cont = airsoftDbContext.SaveChanges();
+            var cont = DbContext.SaveChanges();
             return cont > 0;
         }
     }

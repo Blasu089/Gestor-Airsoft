@@ -2,7 +2,7 @@
 {
     public interface ICrudService<T>
     {
-        T? GetById(int id);
+        T? GetById(int? id);
         ICollection<T> GetAll();
         bool Put(T entity);
         bool Post(T entity);

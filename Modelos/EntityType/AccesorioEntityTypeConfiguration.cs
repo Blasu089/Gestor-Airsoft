@@ -16,10 +16,6 @@ namespace ApiAirsoft.Modelos.EntityType
             builder.Property(ac => ac.Tipo).IsRequired().HasMaxLength(50);
             builder.Property(ac => ac.Precio).IsRequired();
             builder.Property(ac => ac.Foto);
-
-            builder.HasMany(ac => ac.Colores)
-                   .WithMany(c => c.Accesorios);
-
         }
     }
 }
