@@ -10,15 +10,13 @@ namespace ApiAirsoft.Servicios.Services
         private readonly IRepositorio<int, Pedidos> repositorio;
         private readonly IArmaService<Arma> armaService;
         private readonly IAccesorioService<Accesorio> accesorioService;
-        private readonly IClienteService<Clientes> clienteService;
 
         public PedidosService(IRepositorio<int, Pedidos> repositorio, IArmaService<Arma> armaService,
-            IAccesorioService<Accesorio> accesorioService, IClienteService<Clientes> clienteService)
+            IAccesorioService<Accesorio> accesorioService)
         {
             this.repositorio = repositorio;
             this.armaService = armaService;
             this.accesorioService = accesorioService;
-            this.clienteService = clienteService;
         }
 
         public ICollection<Pedidos> GetAll()
@@ -27,9 +25,8 @@ namespace ApiAirsoft.Servicios.Services
             var pedidos = repositorio.Get();
             foreach (var pedido in pedidos)
             {
-                gestionarAccesorios(accesorioService, pedido, false);
-                gestionarArmas(armaService, pedido, false);
-                gestionarClientes(clienteService, pedido, false);
+                gestionarAccesorios(accesorioService, pedido);
+                gestionarArmas(armaService, pedido);
                 pedidos_list.Add(pedido);
             }
             return pedidos_list;
@@ -40,9 +37,8 @@ namespace ApiAirsoft.Servicios.Services
             var pedido = repositorio.Get(id).Where(p => p.Cod_Pedido == id).FirstOrDefault();
             if (pedido != null)
             {
-                gestionarAccesorios(accesorioService, pedido, false);
-                gestionarArmas(armaService, pedido, false);
-                gestionarClientes(clienteService, pedido, false);
+                gestionarAccesorios(accesorioService, pedido);
+                gestionarArmas(armaService, pedido);
                 return pedido;
             }
             else return pedido;
@@ -52,9 +48,9 @@ namespace ApiAirsoft.Servicios.Services
         {
             if (entity != null)
             {
-                if (entity.Cod_Cliente != 0) gestionarClientes(clienteService, entity, true);
-                if (entity.Armas != null) gestionarArmas(armaService, entity, true);
-                if (entity.Accesorios != null) gestionarAccesorios(accesorioService, entity, true);
+                if (entity.Armas != null) gestionarArmas(armaService, entity);
+                if (entity.Accesorios != null) gestionarAccesorios(accesorioService, entity);
+                calcularPrecio(entity, accesorioService, armaService);
                 repositorio.Add(entity);
                 return true;
             }
@@ -65,9 +61,9 @@ namespace ApiAirsoft.Servicios.Services
         {
             if (entity != null)
             {
-                if (entity.Cod_Cliente != 0) gestionarClientes(clienteService, entity, false);
-                if (entity.Armas != null) gestionarArmas(armaService, entity, false);
-                if (entity.Accesorios != null) gestionarAccesorios(accesorioService, entity, false);
+                if (entity.Armas != null) gestionarArmas(armaService, entity);
+                if (entity.Accesorios != null) gestionarAccesorios(accesorioService, entity);
+                calcularPrecio(entity, accesorioService, armaService);
                 repositorio.Update(entity);
                 return true;
             }
@@ -77,55 +73,43 @@ namespace ApiAirsoft.Servicios.Services
 
         #region metodos de gestion
 
-        public void gestionarArmas(IArmaService<Arma> armaService, Pedidos pedido, bool flag)
+        public void gestionarArmas(IArmaService<Arma> armaService, Pedidos pedido)
         {
-            var armas = armaService.GetAll();
-            var arma = armas.Where(a => a.Cod_Pedido == pedido.Cod_Pedido).FirstOrDefault();
-            if (arma != null)
+            var armas = armaService.GetAll().Where(a => a.Cod_Pedido == pedido.Cod_Pedido);
+            if (armas != null)
             {
-                arma.Cod_Pedido = pedido.Cod_Pedido;
-                if (flag)
+                foreach(var a in armas)
                 {
-                    if (pedido.Armas == null) pedido.Armas = new List<Arma> { arma };
-                    else pedido.Armas.Add(arma);
-                    pedido.Precio_Total = pedido.Precio_Total + arma.Precio;
+                    if (pedido.Armas == null) pedido.Armas = new List<Arma> { a };
+                    else pedido.Armas.Add(a);
                 }
             }
         }
 
-        public void gestionarAccesorios(IAccesorioService<Accesorio> accesorioService, Pedidos pedido, bool flag)
+        public void gestionarAccesorios(IAccesorioService<Accesorio> accesorioService, Pedidos pedido)
         {
-            var accesorios = accesorioService.GetAll();
+            var accesorios = accesorioService.GetAll().Where(ac => ac.Cod_Pedido == pedido.Cod_Pedido);
 
-            var accesorio = accesorios.Where(ac => ac.Cod_Pedido == pedido.Cod_Pedido).FirstOrDefault();
-
-            if (accesorio != null)
+            if (accesorios != null)
             {
-                accesorio.Cod_Pedido = pedido.Cod_Pedido;
-                if (flag)
+                foreach(var ac in accesorios)
                 {
-                    if (pedido.Accesorios == null) pedido.Accesorios = new List<Accesorio> { accesorio };
-                    else pedido.Accesorios.Add(accesorio);
-                    pedido.Precio_Total = pedido.Precio_Total + accesorio.Precio;
+                    if (pedido.Accesorios == null) pedido.Accesorios = new List<Accesorio> { ac };
+                    else pedido.Accesorios.Add(ac);
                 }
             }
         }
-
-        public void gestionarClientes(IClienteService<Clientes> clienteService, Pedidos pedido, bool flag)
+        public void calcularPrecio(Pedidos pedido, IAccesorioService<Accesorio> accesorioService, IArmaService<Arma> armaService)
         {
-            var clientes = clienteService.GetAll();
-
-            var cliente = clientes.Where(c => c.Cod_Cliente == pedido.Cod_Cliente).FirstOrDefault();
-
-            if (cliente != null)
+            if (pedido.Armas != null)
             {
-                pedido.Cod_Cliente = cliente.Cod_Cliente;
-                if (flag)
-                {
-                    if (cliente.Pedidos == null) cliente.Pedidos = new List<Pedidos> { pedido };
-                    else cliente.Pedidos.Add(pedido);
-                }
+                pedido.Precio_Total += pedido.Armas.Sum(arma => arma.Precio);
             }
+            if (pedido.Accesorios != null)
+            {
+                pedido.Precio_Total += pedido.Accesorios.Sum(accesorio => accesorio.Precio);
+            }
+
         }
 
         #endregion

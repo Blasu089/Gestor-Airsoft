@@ -290,6 +290,36 @@ namespace ApiAirsoft.Migrations
                     b.ToTable("Pedidos");
                 });
 
+            modelBuilder.Entity("ApiAirsoft.Modelos.Usuario", b =>
+                {
+                    b.Property<int>("Cod_Usuario")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Cod_Usuario"), 1L, 1);
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("Nom_Usuario")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Rol")
+                        .HasColumnType("int");
+
+                    b.HasKey("Cod_Usuario");
+
+                    b.ToTable("Usuarios");
+                });
+
             modelBuilder.Entity("ApiAirsoft.Modelos.Armas.Accesorio", b =>
                 {
                     b.HasOne("ApiAirsoft.Modelos.Pedidos", null)
@@ -330,7 +360,9 @@ namespace ApiAirsoft.Migrations
                 {
                     b.HasOne("ApiAirsoft.Modelos.Clientes", null)
                         .WithMany("Pedidos")
-                        .HasForeignKey("Cod_Cliente");
+                        .HasForeignKey("Cod_Cliente")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("ApiAirsoft.Modelos.Armas.Accion", b =>

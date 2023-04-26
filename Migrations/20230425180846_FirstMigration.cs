@@ -66,6 +66,22 @@ namespace ApiAirsoft.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Usuarios",
+                columns: table => new
+                {
+                    Cod_Usuario = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Nom_Usuario = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Rol = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Usuarios", x => x.Cod_Usuario);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Pedidos",
                 columns: table => new
                 {
@@ -81,7 +97,9 @@ namespace ApiAirsoft.Migrations
                         name: "FK_Pedidos_Clientes_Cod_Cliente",
                         column: x => x.Cod_Cliente,
                         principalTable: "Clientes",
-                        principalColumn: "Cod_Cliente");
+                        principalColumn: "Cod_Cliente",
+                        onUpdate: ReferentialAction.Cascade,
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -108,12 +126,14 @@ namespace ApiAirsoft.Migrations
                         column: x => x.Color_Id,
                         principalTable: "Colores",
                         principalColumn: "Cod_Color",
+                        onUpdate: ReferentialAction.Cascade,
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Accesorios_Pedidos_Cod_Pedido",
                         column: x => x.Cod_Pedido,
                         principalTable: "Pedidos",
                         principalColumn: "Cod_Pedido",
+                        onUpdate: ReferentialAction.Cascade,
                         onDelete: ReferentialAction.SetNull);
                 });
 
@@ -153,24 +173,28 @@ namespace ApiAirsoft.Migrations
                         column: x => x.Accion_Id,
                         principalTable: "Acciones",
                         principalColumn: "Cod_Accion",
+                        onUpdate: ReferentialAction.Cascade,
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Armas_Colores_Color_Id",
                         column: x => x.Color_Id,
                         principalTable: "Colores",
                         principalColumn: "Cod_Color",
+                        onUpdate: ReferentialAction.Cascade,
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Armas_Disparos_Disparo_Id",
                         column: x => x.Disparo_Id,
                         principalTable: "Disparos",
                         principalColumn: "Cod_Disparo",
+                        onUpdate: ReferentialAction.Cascade,
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Armas_Pedidos_Cod_Pedido",
                         column: x => x.Cod_Pedido,
                         principalTable: "Pedidos",
                         principalColumn: "Cod_Pedido",
+                        onUpdate: ReferentialAction.Cascade,
                         onDelete: ReferentialAction.SetNull);
                 });
 
@@ -217,6 +241,9 @@ namespace ApiAirsoft.Migrations
 
             migrationBuilder.DropTable(
                 name: "Armas");
+
+            migrationBuilder.DropTable(
+                name: "Usuarios");
 
             migrationBuilder.DropTable(
                 name: "Acciones");

@@ -16,7 +16,8 @@ namespace ApiAirsoft.Modelos.EntityType
 
             builder.HasMany(c => c.Pedidos)
                    .WithOne()
-                   .HasForeignKey(p => p.Cod_Cliente).IsRequired(false);
+                   .HasForeignKey(p => p.Cod_Cliente)
+                   .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

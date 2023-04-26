@@ -14,6 +14,7 @@ namespace ApiAirsoft.Util
         public DbSet<Accion> Acciones { get; set; }
         public DbSet<Clientes> Clientes { get; set; }
         public DbSet<Pedidos> Pedidos { get; set; }
+        public DbSet<Usuario> Usuarios { get; set; }
 
         public AirsoftDbContext(DbContextOptions<AirsoftDbContext> options) : base(options) { }
 
@@ -27,6 +28,7 @@ namespace ApiAirsoft.Util
             callCreatingPedido(modelBuilder);
             callCreatingCliente(modelBuilder);
             callCreatingAccion(modelBuilder);
+            callCreatingUsuario(modelBuilder);
         }
 
         private void callCreatingArma(ModelBuilder modelBuilder) => modelBuilder
@@ -43,5 +45,7 @@ namespace ApiAirsoft.Util
             .ApplyConfigurationsFromAssembly(typeof(AccionEntityTypeConfiguration).Assembly);
         private void callCreatingDisparo(ModelBuilder modelBuilder) => modelBuilder
             .ApplyConfigurationsFromAssembly(typeof(DisparoEntityTypeConfiguration).Assembly);
+        private void callCreatingUsuario(ModelBuilder modelBuilder) => modelBuilder
+            .ApplyConfigurationsFromAssembly(typeof(UsuarioEntityTypeConfiguration).Assembly);
     }
 }

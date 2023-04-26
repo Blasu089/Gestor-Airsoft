@@ -31,7 +31,8 @@ namespace ApiAirsoft
             services.AddScoped<IDisparoService<Disparo>, DisparoService>();
             services.AddScoped<IClienteService<Clientes>, ClienteService>();
             services.AddScoped<IPedidosService<Pedidos>, PedidosService>();
-
+            services.AddScoped<IUsuarioService<Usuario>, UsuarioService>();
+            services.AddScoped<IEncriptacion, Encriptacion>();
 
             services.AddMvc();
 
