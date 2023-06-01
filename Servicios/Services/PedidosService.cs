@@ -50,7 +50,6 @@ namespace ApiAirsoft.Servicios.Services
             {
                 if (entity.Armas != null) gestionarArmas(armaService, entity);
                 if (entity.Accesorios != null) gestionarAccesorios(accesorioService, entity);
-                calcularPrecio(entity, accesorioService, armaService);
                 repositorio.Add(entity);
                 return true;
             }
@@ -63,7 +62,6 @@ namespace ApiAirsoft.Servicios.Services
             {
                 if (entity.Armas != null) gestionarArmas(armaService, entity);
                 if (entity.Accesorios != null) gestionarAccesorios(accesorioService, entity);
-                calcularPrecio(entity, accesorioService, armaService);
                 repositorio.Update(entity);
                 return true;
             }
@@ -99,19 +97,6 @@ namespace ApiAirsoft.Servicios.Services
                 }
             }
         }
-        public void calcularPrecio(Pedidos pedido, IAccesorioService<Accesorio> accesorioService, IArmaService<Arma> armaService)
-        {
-            if (pedido.Armas != null)
-            {
-                pedido.Precio_Total += pedido.Armas.Sum(arma => arma.Precio);
-            }
-            if (pedido.Accesorios != null)
-            {
-                pedido.Precio_Total += pedido.Accesorios.Sum(accesorio => accesorio.Precio);
-            }
-
-        }
-
         #endregion
     }
 }

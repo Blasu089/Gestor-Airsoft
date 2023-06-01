@@ -2,6 +2,7 @@
 using ApiAirsoft.Servicios.IServices;
 using Castle.Core.Internal;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 
 namespace ApiAirsoft.Controladores
 {
@@ -32,7 +33,7 @@ namespace ApiAirsoft.Controladores
         }
 
         [HttpPost("crear")]
-        public ActionResult<Clientes> Create(Clientes clientes)
+        public ActionResult<Clientes> Create([FromBody] Clientes clientes)
         {
             var response = service.Post(clientes);
             return response == false ? BadRequest() : Ok(clientes);
@@ -47,7 +48,7 @@ namespace ApiAirsoft.Controladores
         }
 
         [HttpDelete("borrar")]
-        public IActionResult Delete(Clientes clientes)
+        public IActionResult Delete([FromBody]Clientes clientes)
         {
             var response = service.Delete(clientes);
             return response == false ? BadRequest() : NoContent();

@@ -3,6 +3,7 @@ using ApiAirsoft.Modelos.Armas;
 using ApiAirsoft.Servicios.IServices;
 using Castle.Core.Internal;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 using System;
 
 namespace ApiAirsoft.Controladores
