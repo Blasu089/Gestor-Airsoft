@@ -11,7 +11,7 @@ namespace ApiAirsoft.Modelos.EntityType
             builder.Property(c=>c.Nombre).IsRequired().HasMaxLength(100);
             builder.Property(c => c.Apellido1).IsRequired().HasMaxLength(100);
             builder.Property(c => c.Apellido2).IsRequired().HasMaxLength(100);
-            builder.Property(c=>c.Gmail).IsRequired();
+            builder.Property(c=>c.Email).IsRequired();
             builder.Property(c => c.Telefono);
 
             builder.HasMany(c => c.Pedidos)

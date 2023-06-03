@@ -35,7 +35,7 @@ namespace ApiAirsoft.Controladores
         public ActionResult<Accesorio> Create(Accesorio accesorio)
         {
             var response=service.Post(accesorio);
-            return response == false ? BadRequest() : Ok(response);
+            return response == false ? BadRequest() : Ok(accesorio);
         }
 
         [HttpPut("editar/{id}")]
